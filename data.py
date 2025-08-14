@@ -2,7 +2,7 @@ import json
 import base64
 
 class User:
-    def __init__(self, pts=0, name="usr", host="host", rank="basic", multi=1, files=[], term="{}@{}:~$ "):
+    def __init__(self, pts=999, name="usr", host="host", rank="basic", multi=1, files=['e', 'e', 'e'], term="{}@{}:~$ "):
         self.pts = pts
 
         self.name = name

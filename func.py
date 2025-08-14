@@ -1,6 +1,8 @@
 import os, time, random as r
 from data import usr, shop, iptarget, guess_nmap
 import data
+import textwrap
+import string
 
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
@@ -56,6 +58,7 @@ def scan_cmd(prompt=""):
     else:
         if guess_nmap and cmd == guess_nmap[0] and args and args[0].isdigit():
             cmd_nmapguess(args[0])
+    
 
 
 def cmd_help():
@@ -73,15 +76,22 @@ nmap <ip>         - [PRO MINI NEEDED]
 
 
 def cmd_get():
-    for c in "⠁⠉⠋⠛⠟⠿":
-        print(c, end="\r", flush=True)
-        time.sleep(0.2)
-    print(f"⠿ Collected {6 * usr.multi} Pts")
-    usr.pts += 6 * usr.multi
-    if r.randint(1,6) == 1:
-        file = r.choice(data.file_name) + r.choice(data.file_ex)
-        usr.files.append(file)
-        print(f"You got a file named {file}!")
+    if r.randint(0,9) == 0:
+        for c in "⠁⠉⠋":
+            print(c, end="\r", flush=True)
+            time.sleep(0.2)
+        scary_str = [chr(r.randint(161,1000)) for _ in range(1,999)]
+        spawn_virus(r.randint(1,100))
+    else:
+        if r.randint(1,6) == 1:
+            for c in "⠁⠉⠋⠛⠟⠿":
+                print(c, end="\r", flush=True)
+                time.sleep(0.2)
+            print(f"⠿ Collected {6 * usr.multi} Pts")
+            usr.pts += 6 * usr.multi
+            file = r.choice(data.file_name) + r.choice(data.file_ex)
+            usr.files.append(file)
+            print(f"You got a file named {file}!")
 
 
 def cmd_map():
@@ -113,3 +123,66 @@ def cmd_nmapguess(guess):
     if int(guess) in guess_nmap:
         print("You have hacked the user!\n⠿ Collected 10 Pts")
         usr.pts += 10
+
+def spawn_virus(chance):
+    if chance <= 5:
+        print("Rare virus found")
+
+    elif chance <= 15:
+        hp, status = 10, ""
+        while hp > 0:
+            stuff = "!@#$%^&*?" + string.ascii_letters + string.digits
+            code = "".join(r.choice(stuff) for _ in range(5))
+            print(textwrap.dedent(f"""
+                Virus: Vamp1r3 - Rare
+                HP: {hp} - ! CHANCE TO STEAL FILES OR POINTS !
+                How to damage: type 'die' in prompt
+            """))
+            if status:
+                print(status)
+                status = ""
+
+            if input(">>> ").lower() == "die":
+                hp -= 1
+                
+            if r.randint(0,4) == 0:
+                decide = r.randint(0,1)
+                if decide:
+                    if usr.pts > 4:
+                        taken = r.randint(1,5)
+                        usr.pts -= taken
+                        hp += taken
+                        status = f"It has taken {taken} points to heal itself!"
+                else:
+                    if usr.files:
+                        picked = r.choice(usr.files)
+                        taken = usr.files.remove(picked)
+                        hp += 3
+                        status = f"It has taken {picked} to heal itself!"
+            clear()
+
+    elif chance <= 30:
+        hp = 5
+        while hp > 0:
+            clear()
+            stuff = "!@#$%^&*?" + string.ascii_letters + string.digits
+            code = "".join(r.choice(stuff) for _ in range(5))
+            print(textwrap.dedent(f"""
+                Virus: Captc.ha 2 - Uncommon
+                HP: {hp}
+                How to damage: type '{code}' in prompt
+            """))
+            if input(">>> ") == code:
+                hp -= 1
+                
+    else:
+        print("Hello! We just want you to verify!")
+        time.sleep(2)
+        code = "".join(chr(r.randint(65,90)) for _ in range(5))
+        while True:
+            print(textwrap.dedent(f"""
+                  Virus: Captc.ha - Common
+                  How to beat: type '{code}' in prompt
+                  """))
+            if input(">>> ") == code:
+                break
