@@ -2,7 +2,7 @@ import json
 import base64
 
 class User:
-    def __init__(self, pts=999, name="usr", host="host", rank="basic", multi=1, files=['e', 'e', 'e'], term="{}@{}:~$ "):
+    def __init__(self, pts=0, name="usr", host="host", rank="basic", multi=1, files=[], term="{}@{}:~$ "):
         self.pts = pts
 
         self.name = name
@@ -118,7 +118,7 @@ sys_file_ex = (".bat", ".sys", ".env", ".sh", ".reg", ".map", ".dll", "", ".drv"
 sys_file_name = ("system", "operating", "terminal", "drivers", "regis", "variable", "protocol", "faketermin", "easteregg")
 
 # Random file formats for "get" random files
-file_ex = (".exe", ".txt", ".png", ".jpg", "jpeg", ".svg", ".htm", ".xml", ".c", ".py", ".md")
+file_ex = (".exe", ".txt", ".png", ".jpg", ".jpeg", ".svg", ".htm", ".xml", ".c", ".py", ".md")
 
 # Random file name for "get" random files
 file_name = ("game", "homework", "image", "notes", "web", "code", "test", "cool")

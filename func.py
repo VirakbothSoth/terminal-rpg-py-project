@@ -7,7 +7,6 @@ import string
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
-
 def play_intro():
     print("Setting Terminal..."); time.sleep(0.5)
 
@@ -80,15 +79,14 @@ def cmd_get():
         for c in "⠁⠉⠋":
             print(c, end="\r", flush=True)
             time.sleep(0.2)
-        scary_str = [chr(r.randint(161,1000)) for _ in range(1,999)]
         spawn_virus(r.randint(1,100))
     else:
-        if r.randint(1,6) == 1:
-            for c in "⠁⠉⠋⠛⠟⠿":
-                print(c, end="\r", flush=True)
-                time.sleep(0.2)
-            print(f"⠿ Collected {6 * usr.multi} Pts")
-            usr.pts += 6 * usr.multi
+        for c in "⠁⠉⠋⠛⠟⠿":
+            print(c, end="\r", flush=True)
+            time.sleep(0.2)
+        print(f"⠿ Collected {6 * usr.multi} Pts")
+        usr.pts += 6 * usr.multi
+        if r.randint(0,5) == 0:
             file = r.choice(data.file_name) + r.choice(data.file_ex)
             usr.files.append(file)
             print(f"You got a file named {file}!")
@@ -109,6 +107,7 @@ def cmd_nmap(ip):
     guess_nmap[:] = [service, port]
 
     print(f"Starting Nmap 1.00 ( http://nmap.org ) at 2025-01-01 24:00 BST\n")
+    time.sleep(0.5)
     print(f"""Nmap scan report for {ip}
 Host is up (0.41s latency).
 Not shown: Real IP Ports (reset)
