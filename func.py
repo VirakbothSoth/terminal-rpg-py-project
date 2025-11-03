@@ -95,7 +95,10 @@ def cmd_get():
 def cmd_map():
     while len(iptarget) < 5:
         iptarget.append(".".join(str(r.randint(0, 255)) for _ in range(4)))
-    print(iptarget)
+    print("Targets: ")
+    for ip in iptarget:
+        print(ip)
+    print("Use nmap <ip> to start hacking")
 
 
 def cmd_nmap(ip):
