@@ -1,5 +1,4 @@
 from func import *
-import data
 from data import usr
 
 clear()

@@ -71,7 +71,8 @@ usr = User()
 class Shop:
     def __init__(self):
         self.item = {
-            "rank_pro_mini": 24
+            "rank_pro_mini": 24,
+            "rank_pro": 100
         }
 
         self.ranks = {
@@ -82,9 +83,12 @@ class Shop:
 
     def menu(self):
         print("\nShop:")
-        for name, price in self.item.items():
-            print(f"• {name} - {price} pts")
-        print("Say 'shop buy <item>' to buy\n")
+        if not self.item:
+            print("No items left 😭")
+        else:
+            for name, price in self.item.items():
+                print(f"• {name} - {price} pts")
+            print("Say 'shop buy <item>' to buy\n")
 
     def buy_item(self, usr, pick):
         if pick not in self.item:
@@ -97,12 +101,23 @@ class Shop:
             usr.pts -= price
 
             print(f"\nBought {pick} for {price}!")
-            if pick.startswith("rank_"):
+            if pick.startswith("rank_pro_mini"):
                 usr.rank = "promini"
                 usr.term = "┌──({}㉿{})-[~]-[>]\n└─$ "
                 usr.multi = 2
                 print(f"Thanks for buying {usr.rank}!")
                 print("Perks: Kali Terminal, 2x Pts, New Commands: map, nmap\n")
+
+            elif pick.startswith("rank_pro"):
+                usr.rank = "pro"
+                usr.term = "({}㉿{}) [>]\n$ "
+                usr.multi = 3
+                print(f"Thanks for buying {usr.rank}!")
+                print("Perks: Cleaner Terminal, 3x Pts\n")
+
+            # remove item from shop
+            del self.item[pick]
+
         else:
             print("Error: Not Enough Pts")
 
